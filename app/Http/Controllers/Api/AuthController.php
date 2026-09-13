@@ -12,16 +12,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
- * Deliberately password-less "log in as" endpoint used ONLY by the demo
- * UI, so a reviewer can switch between users and try commenting / liking
- * as each of them.
- *
- * Assumption (see README): the task brief does not ask for a full
- * authentication system - it only asks that a comment/like can be made
- * "as a user". Implementing real password auth would add scope without
- * demonstrating anything about the reward system itself, so this picks
- * the simplest thing that lets the UI attribute actions to a real user
- * record: pick (or create) an account by email, get a Sanctum token back.
+ * Password-less "log in as" flow for the demo UI, so anyone can switch
+ * between users and try commenting/liking as each of them without a
+ * registration form asking for a password nobody needs. Picking (or
+ * creating) an account by email is enough to attribute actions to a
+ * real, authenticated user server-side (see README).
  */
 class AuthController extends Controller
 {

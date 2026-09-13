@@ -7,13 +7,13 @@ namespace App\Services;
  * and for figuring out which badge they should aim for next.
  *
  * Badges are derived directly from the *total points* a user has
- * accumulated, in ascending order of tier. This is a deliberate design
- * decision (see README "Assumptions"): the reward system awards points
- * for specific milestones (1st / 30th / 50th comment, 10th like), but the
- * badge a user currently holds is simply "the highest tier whose point
- * threshold has been reached", regardless of which actions produced those
- * points. This keeps the mapping points -> badge a single source of truth
- * that is trivial to test (e.g. "a user with 3000 points has top-fan-badge").
+ * accumulated, in ascending order of tier. The reward system awards
+ * points for specific milestones (1st / 30th / 50th comment, 10th like),
+ * but the badge a user currently holds is simply "the highest tier whose
+ * point threshold has been reached", regardless of which actions
+ * produced those points. That keeps the mapping points -> badge a single
+ * source of truth that's trivial to test (e.g. a user with 3000 points
+ * holds top-fan-badge).
  */
 class BadgeService
 {

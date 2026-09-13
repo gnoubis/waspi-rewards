@@ -11,24 +11,19 @@ use Illuminate\Http\Response;
 use Laravel\Sanctum\PersonalAccessToken;
 
 /**
- * The graded "list all users" endpoint from the task brief:
+ * GET /api/rewards/users?access_token=...&type=...&points=...
  *
- *   GET /api/rewards/users?access_token=...&type=...&points=...
+ * Lists users with their points/badge. The access token is a plain
+ * query/body parameter rather than an Authorization header, and is
+ * checked against issued Sanctum tokens directly - missing or wrong,
+ * and this returns 401 with an empty body, no exceptions.
  *
- * Auth: a valid Sanctum personal access token string is required as the
- * `access_token` query (or body) parameter - NOT as an Authorization
- * header. This matches the brief's wording ("The method should receive
- * an access token") literally. If the token is missing, malformed, or
- * does not match any issued token, the endpoint returns HTTP 401 with an
- * empty body - no user data is leaked either way.
+ * Optional filters, combinable:
+ *  - type:   exact badge name, e.g. "top-fan-badge".
+ *  - points: exact points total a user must have.
  *
- * Filters (both optional, can be combined):
- *  - type:   exact badge name, e.g. "top-fan-badge". Users who don't
- *            hold this badge are excluded.
- *  - points: exact points total a user must have to be included.
- *
- * Every returned user also carries `next_badge`: the badge they would
- * earn next, or null if they already hold the highest one.
+ * Every user also carries `next_badge`: the badge they'd earn next, or
+ * null once they hold the highest one.
  */
 class RewardUserController extends Controller
 {

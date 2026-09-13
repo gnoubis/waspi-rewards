@@ -7,10 +7,8 @@
 @use 'components/comment';
 @use 'components/layout';
 
-// Tailwind is wired in as the bonus mentioned in the brief ("a plus will
-// be appreciated using Tailwind"), but the actual component styling above
-// is hand-written SCSS - variables, mixins, nesting, maps - since the
-// brief specifically asks to see SCSS proficiency.
+// Tailwind is wired in for quick utility layout, but the actual component
+// styling above is hand-written SCSS - variables, mixins, nesting, maps.
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

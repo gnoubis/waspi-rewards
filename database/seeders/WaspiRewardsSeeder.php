@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
  *    (see README "API - graded endpoint") so the graded endpoint can be
  *    tested immediately without registering anything;
  *  - a handful of authors and posts to comment on;
- *  - one showcase user per badge milestone described in the task brief,
+ *  - one showcase user per badge milestone,
  *    created by actually performing the comment/like actions (not by
  *    setting `points` directly) so the seeder doubles as a live
  *    end-to-end demonstration that RewardService + BadgeService work.

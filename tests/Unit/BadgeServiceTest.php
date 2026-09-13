@@ -23,9 +23,7 @@ class BadgeServiceTest extends TestCase
             'within beginner range (likes milestone)' => [500, BadgeService::BEGINNER],
             'just below top-fan threshold' => [2499, BadgeService::BEGINNER],
             'exactly top-fan threshold' => [2500, BadgeService::TOP_FAN],
-            // The example given in the task brief: "if a user is rewarded
-            // 3000 pts let them have a top-fan-badge".
-            '3000 points from the task brief example' => [3000, BadgeService::TOP_FAN],
+            '3000 points sits within the top-fan range' => [3000, BadgeService::TOP_FAN],
             'just below super-fan threshold' => [4999, BadgeService::TOP_FAN],
             'exactly super-fan threshold' => [5000, BadgeService::SUPER_FAN],
             'well above super-fan threshold' => [50000, BadgeService::SUPER_FAN],

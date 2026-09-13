@@ -1,9 +1,8 @@
-# Single-container image for a demo/review deployment (see README
-# "Deployment"). Builds the Vue/SCSS assets at image build time, then
-# serves the whole app (API + SPA) with `php artisan serve`. This is not
-# a production-grade PHP-FPM/Nginx setup - it's the simplest thing that
-# reliably deploys this task on a free host (Railway, Render, Fly.io) in
-# a single Dockerfile, which is what the brief actually needs.
+# Single-container image (see README "Deployment"). Builds the Vue/SCSS
+# assets at image build time, then serves the whole app (API + SPA) with
+# `php artisan serve`. Not a production-grade PHP-FPM/Nginx setup - it's
+# the simplest thing that reliably deploys on a free host (Railway,
+# Render, Fly.io) from a single Dockerfile.
 
 FROM node:20-slim AS assets
 WORKDIR /app

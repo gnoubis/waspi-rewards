@@ -1,11 +1,6 @@
 // Custom modal component (see resources/js/components/AppModal.vue).
-//
-// The task brief points to `vue-js-modal`, a Vue 2 plugin. This project
-// uses Vue 3, which that package does not support, so per the brief's own
-// instruction ("anything not [a cited library] should be done in vanilla
-// JS") this modal is a small hand-rolled Vue component with plain
-// CSS/SCSS + the native <dialog>-style overlay pattern, no extra
-// dependency. See README "Assumptions".
+// vue-js-modal is Vue 2-only with no Vue 3 release, so this is a small
+// hand-rolled overlay + transition instead - no extra dependency.
 @use '../variables' as v;
 @use '../mixins' as m;
 

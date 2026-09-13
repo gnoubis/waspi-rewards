@@ -1,16 +1,4 @@
 <script setup>
-/**
- * Small, dependency-free modal component.
- *
- * The task brief points to `vue-js-modal`, which is a Vue 2-only plugin
- * with no Vue 3 release - it can't be installed alongside the Vue 3 +
- * Vite stack Laravel ships today. Per the brief's own fallback rule
- * ("anything not [a cited library] should be done in vanilla JS"), this
- * is a small hand-rolled modal instead: a <Teleport> to <body>, a
- * click-outside/Escape-to-close handler, and plain CSS for the overlay
- * and transition (see resources/scss/components/_modal.scss). See
- * README "Assumptions" for the full reasoning.
- */
 import { onBeforeUnmount, onMounted, watch } from 'vue';
 
 const props = defineProps({

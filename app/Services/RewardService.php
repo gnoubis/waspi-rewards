@@ -6,7 +6,7 @@ use App\Models\User;
 
 /**
  * Awards WASPI REWARDS points to a user when they cross one of the
- * milestones described in the task brief:
+ * milestones below:
  *
  *  - 1st ever comment      -> +50 points   (beginner-badge threshold)
  *  - 30th comment          -> +2500 points (top-fan-badge threshold)
@@ -17,11 +17,10 @@ use App\Models\User;
  * user's running total of comments/likes reaches the given count. They do
  * not repeat for every comment/like made afterwards.
  *
- * Assumption (documented in README): points are awarded on creation only.
- * Deleting a comment or unliking a comment does NOT retroactively revoke
- * previously earned points - once a milestone is reached, it stays
- * earned. This avoids surprising "badge downgrades" from a purely
- * incidental cleanup action.
+ * Points are awarded on creation only. Deleting a comment or unliking a
+ * comment does NOT retroactively revoke previously earned points - once
+ * a milestone is reached, it stays earned. This avoids surprising
+ * "badge downgrades" from a purely incidental cleanup action.
  */
 class RewardService
 {

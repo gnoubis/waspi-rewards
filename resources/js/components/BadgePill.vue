@@ -1,23 +1,24 @@
 <script setup>
 import { computed } from 'vue';
+import IconStar from './icons/IconStar.vue';
 
 const props = defineProps({
     badge: { type: String, default: null },
 });
 
 const LABELS = {
-    'beginner-badge': { icon: '🥉', label: 'Beginner' },
-    'top-fan-badge': { icon: '🥈', label: 'Top Fan' },
-    'super-fan-badge': { icon: '🥇', label: 'Super Fan' },
+    'beginner-badge': 'Beginner',
+    'top-fan-badge': 'Top Fan',
+    'super-fan-badge': 'Super Fan',
 };
 
-const info = computed(() => LABELS[props.badge] ?? { icon: '·', label: 'No badge yet' });
+const label = computed(() => LABELS[props.badge] ?? 'No badge yet');
 const modifierClass = computed(() => (props.badge ? `badge--${props.badge}` : 'badge--none'));
 </script>
 
 <template>
     <span class="badge" :class="modifierClass">
-        <span class="badge__icon" aria-hidden="true">{{ info.icon }}</span>
-        {{ info.label }}
+        <IconStar v-if="badge" :size="11" class="badge__icon" />
+        {{ label }}
     </span>
 </template>

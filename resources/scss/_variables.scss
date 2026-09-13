@@ -5,41 +5,48 @@
 // -----------------------------------------------------------------------------
 @use 'sass:map';
 
-// Brand palette
-$color-primary: #ff6b35; // Waspito-style warm orange
-$color-primary-dark: #e2551f;
-$color-primary-light: #ffe8dd;
+// Brand palette, sampled directly from https://app.waspito.com/ (their
+// primary CTA green, the exact 3-stop gradient used on their own
+// headline, and their teal/business accent).
+$color-primary: #2fa74b; // Waspito "theme-1" green - primary CTAs, links
+$color-primary-dark: #228040;
+$color-primary-light: #e7f6ea;
 
-$color-ink: #1b1f27; // near-black text
-$color-body: #4a5063; // secondary text
-$color-muted: #8a90a3;
-$color-border: #e6e8ef;
+$color-accent-teal: #01ab83; // Waspito's secondary/business accent
+$color-accent-orange: #f97316; // warm end of Waspito's own hero gradient
+
+$color-ink: #111827; // Waspito heading text
+$color-body: #374151;
+$color-muted: #6b7280; // Waspito muted/meta text
+$color-border: #e5e7eb; // Waspito input/card border
 $color-surface: #ffffff;
-$color-canvas: #f6f7fb;
+$color-canvas: #f8faf8;
 
-$color-success: #2fa86a;
-$color-danger: #e5484d;
-$color-danger-light: #fdecec;
+$color-success: $color-primary;
+$color-danger: #dc2626;
+$color-danger-light: #fef2f2;
 
-// Badge tiers, lowest to highest. Colors chosen to read as a clear
-// progression (bronze -> silver -> gold) independent of the brand color.
+// Badge tiers, lowest to highest, walking the exact same green -> orange
+// gradient Waspito uses for its own hero headline
+// (from-theme-1 via-theme-2 to-orange-500) - so climbing WASPI REWARDS
+// tiers visually reads as "the same journey" as their brand mark.
 $badge-colors: (
     'beginner-badge': (
-        bg: #fdf1e0,
-        fg: #a9631a,
-        ring: #f0c489,
+        bg: #e7f6ea,
+        fg: #1f7a38,
+        ring: #a9ddb6,
         label: 'Beginner',
     ),
     'top-fan-badge': (
-        bg: #eef1ff,
-        fg: #4756c9,
-        ring: #b9c1ff,
+        bg: #f4f8e3,
+        fg: #5b7a1e,
+        ring: #c7de9a,
         label: 'Top Fan',
     ),
     'super-fan-badge': (
-        bg: #fff6da,
-        fg: #a3790a,
-        ring: #f4d774,
+        bg: #fff1e6,
+        fg: #c2410c,
+        ring: #fbc79a,
         label: 'Super Fan',
     ),
 );

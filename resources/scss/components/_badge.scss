@@ -14,8 +14,8 @@
     white-space: nowrap;
 
     &__icon {
-        font-size: 0.9em;
-        line-height: 1;
+        display: block;
+        flex-shrink: 0;
     }
 
     // One modifier per badge tier known to the backend

@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import api from './api';
 import BadgePill from './components/BadgePill.vue';
+import IconStar from './components/icons/IconStar.vue';
 import PostCard from './components/PostCard.vue';
 import SessionSwitcher from './components/SessionSwitcher.vue';
 
@@ -37,7 +38,9 @@ const badgeRules = [
         <header class="app-header">
             <div class="app-header__inner">
                 <div class="app-header__brand">
-                    <span class="app-header__logo" aria-hidden="true">🏆</span>
+                    <span class="app-header__logo">
+                        <IconStar :size="18" />
+                    </span>
                     WASPI REWARDS
                 </div>
                 <SessionSwitcher />

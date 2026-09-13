@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import api from '../api';
 import { useSession } from '../composables/useSession';
+import IconHeart from './icons/IconHeart.vue';
 
 const props = defineProps({
     comment: { type: Object, required: true },
@@ -81,9 +82,11 @@ async function deleteComment() {
                     :title="session.user ? '' : 'Log in to like comments'"
                     @click="toggleLike"
                 >
-                    <span class="like-button__icon" aria-hidden="true">
-                        {{ comment.liked_by_current_user ? '❤️' : '🤍' }}
-                    </span>
+                    <IconHeart
+                        class="like-button__icon"
+                        :size="14"
+                        :filled="comment.liked_by_current_user"
+                    />
                     {{ comment.likes_count }}
                 </button>
 

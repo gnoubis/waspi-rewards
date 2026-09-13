@@ -191,7 +191,14 @@ was assumed and why, so nothing is a silent surprise during review:
    deployable with zero external database setup, at the cost of not
    reflecting a "real" production database choice.
 
-8. **A comment can be liked by the same user only once** (unique
+8. **Brand colors were sampled from `app.waspito.com`** (primary green,
+   its hero-gradient orange, the teal business accent) and applied to the
+   SCSS design tokens in `resources/scss/_variables.scss`. The header
+   mark and badge icons are original inline SVGs (not Waspito's actual
+   logo), and the reward tiers deliberately walk the same green -> olive
+   -> orange gradient Waspito uses on its own homepage headline.
+
+9. **A comment can be liked by the same user only once** (unique
    constraint on `user_id` + `comment_id`); liking an already-liked
    comment is treated as idempotent (still returns 200) rather than an
    error.

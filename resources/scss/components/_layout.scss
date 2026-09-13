@@ -33,7 +33,13 @@
     }
 
     &__logo {
-        font-size: 1.4rem;
+        @include m.flex-center;
+
+        width: 1.75rem;
+        height: 1.75rem;
+        border-radius: v.$radius-sm;
+        background: v.$color-primary-light;
+        color: v.$color-primary;
     }
 }
 

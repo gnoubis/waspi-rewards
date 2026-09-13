@@ -1,10 +1,13 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import api from './api';
 import BadgePill from './components/BadgePill.vue';
 import IconStar from './components/icons/IconStar.vue';
 import PostCard from './components/PostCard.vue';
 import SessionSwitcher from './components/SessionSwitcher.vue';
+import { useSession } from './composables/useSession';
+
+const { session } = useSession();
 
 const posts = ref([]);
 const loading = ref(true);
@@ -25,6 +28,17 @@ async function loadPosts() {
 }
 
 onMounted(loadPosts);
+
+// Per-user fields on each comment (liked_by_current_user, can_delete) are
+// computed server-side from the request's authenticated user at fetch
+// time. Without this, switching who's logged in would leave every
+// comment showing the *previous* user's like/delete state until the next
+// unrelated re-render - see README "Known fix: like requiring 2 clicks
+// after switching users".
+watch(
+    () => session.user?.id,
+    () => loadPosts()
+);
 
 const badgeRules = [
     { badge: 'beginner-badge', rule: '1st comment or 10th like', points: '+50 / +500 pts' },

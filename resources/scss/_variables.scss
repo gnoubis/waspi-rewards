@@ -26,33 +26,28 @@ $color-success: $color-primary;
 $color-danger: #dc2626;
 $color-danger-light: #fef2f2;
 
-// Badge tiers, lowest to highest, walking the exact same green -> orange
-// gradient Waspito uses for its own hero headline
-// (from-theme-1 via-theme-2 to-orange-500) - so climbing WASPI REWARDS
-// tiers visually reads as "the same journey" as their brand mark.
+// Badge tiers, lowest to highest. Solid fills using Waspito's three
+// actual brand hues (green / teal / orange) rather than a set of soft
+// pastel tints - the same solid-fill, white-text, small-radius treatment
+// their own "Business Sales" tag uses (see WASPI-REWARDS README), not
+// the generic soft-chip look.
 $badge-colors: (
     'beginner-badge': (
-        bg: #e7f6ea,
-        fg: #1f7a38,
-        ring: #a9ddb6,
+        bg: $color-primary,
         label: 'Beginner',
     ),
     'top-fan-badge': (
-        bg: #f4f8e3,
-        fg: #5b7a1e,
-        ring: #c7de9a,
+        bg: $color-accent-teal,
         label: 'Top Fan',
     ),
     'super-fan-badge': (
-        bg: #fff1e6,
-        fg: #c2410c,
-        ring: #fbc79a,
+        bg: $color-accent-orange,
         label: 'Super Fan',
     ),
 );
 
-// Type
-$font-family-base: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+// Type. Roboto is loaded via Google Fonts in resources/views/app.blade.php.
+$font-family-base: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 $font-size-base: 16px;
 
 // Spacing scale (used via the `space()` function below)
@@ -69,9 +64,9 @@ $space-scale: (
 );
 
 // Radii & elevation
-$radius-sm: 8px;
-$radius-md: 14px;
-$radius-lg: 22px;
+$radius-sm: 6px;
+$radius-md: 10px;
+$radius-lg: 14px;
 $radius-pill: 999px;
 
 $shadow-sm: 0 1px 2px rgba(17, 20, 30, 0.06);

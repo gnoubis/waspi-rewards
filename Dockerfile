@@ -24,7 +24,10 @@ WORKDIR /app
 COPY . .
 COPY --from=assets /app/public/build ./public/build
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress \
+# Not --no-dev: the seeder uses fakerphp/faker (a dev dependency) to
+# generate the demo dataset, and this image's whole point is running
+# that seeder for a reviewable demo.
+RUN composer install --optimize-autoloader --no-interaction --no-progress \
     && cp .env.example .env \
     && chmod +x docker/entrypoint.sh
 

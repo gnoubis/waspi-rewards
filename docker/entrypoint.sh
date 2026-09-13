@@ -1,8 +1,13 @@
 #!/usr/bin/env sh
 set -e
 
-# Generate an APP_KEY on first boot if one isn't already baked in via env.
-if [ -z "$APP_KEY" ] || [ "$APP_KEY" = "base64:" ]; then
+# `php artisan serve`'s dev-server subprocess doesn't reliably inherit
+# APP_KEY from the container's environment even when it's set (Laravel's
+# ServeCommand re-parses .env for the child process), so write it into
+# .env directly rather than trusting env-var propagation.
+if [ -n "$APP_KEY" ]; then
+    sed -i "s|^APP_KEY=.*|APP_KEY=${APP_KEY}|" .env
+else
     php artisan key:generate --force
 fi
 

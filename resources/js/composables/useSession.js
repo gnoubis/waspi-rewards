@@ -39,13 +39,22 @@ function restore() {
     }
 }
 
-async function loginAs(email) {
-    const { data } = await api.post('/auth/login', { email });
-
+function applySession(data) {
     state.user = data.user;
     state.token = data.token;
     setAuthToken(data.token);
     persist();
+}
+
+async function loginAs(email) {
+    const { data } = await api.post('/auth/login', { email });
+    applySession(data);
+}
+
+/** Creates a brand new user (name + email) and logs in as them. */
+async function register(name, email) {
+    const { data } = await api.post('/auth/register', { name, email });
+    applySession(data);
 }
 
 async function logout() {
@@ -92,6 +101,7 @@ export function useSession() {
     return {
         session: readonly(state),
         loginAs,
+        register,
         logout,
         updateCurrentUser,
         refreshCurrentUser,

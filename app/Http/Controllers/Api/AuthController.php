@@ -4,21 +4,24 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 /**
  * Deliberately password-less "log in as" endpoint used ONLY by the demo
- * UI, so a reviewer can switch between seeded users and try commenting /
- * liking as each of them.
+ * UI, so a reviewer can switch between users and try commenting / liking
+ * as each of them.
  *
  * Assumption (see README): the task brief does not ask for a full
  * authentication system - it only asks that a comment/like can be made
  * "as a user". Implementing real password auth would add scope without
  * demonstrating anything about the reward system itself, so this picks
  * the simplest thing that lets the UI attribute actions to a real user
- * record: pick a seeded email, get a Sanctum token back.
+ * record: pick (or create) an account by email, get a Sanctum token back.
  */
 class AuthController extends Controller
 {
@@ -26,19 +29,29 @@ class AuthController extends Controller
     {
         $user = User::where('email', $request->validated('email'))->firstOrFail();
 
-        $token = $user->createToken('demo-ui')->plainTextToken;
+        return $this->tokenResponse($user);
+    }
 
-        return response()->json([
-            'user' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'points' => $user->points,
-                'badge' => $user->badge,
-                'next_badge' => $user->next_badge,
-            ],
-            'token' => $token,
+    /**
+     * Creates a brand new user (name + email only, no password chosen by
+     * them - see class docblock) and immediately logs them in. This is
+     * what the "+ New user" flow in the demo UI hits.
+     */
+    public function register(RegisterRequest $request): JsonResponse
+    {
+        $user = User::create([
+            'name' => $request->validated('name'),
+            'email' => $request->validated('email'),
+            'password' => Hash::make(Str::random(32)),
+            // Explicit rather than relying on the DB column default: the
+            // in-memory model after create() reflects only what was
+            // passed in, not defaults applied at the database layer, so
+            // leaving this out would serialize `points: null` in the
+            // response even though the row itself would say 0.
+            'points' => 0,
         ]);
+
+        return $this->tokenResponse($user, 201);
     }
 
     public function logout(Request $request): JsonResponse
@@ -76,5 +89,22 @@ class AuthController extends Controller
             ]);
 
         return response()->json($users);
+    }
+
+    private function tokenResponse(User $user, int $status = 200): JsonResponse
+    {
+        $token = $user->createToken('demo-ui')->plainTextToken;
+
+        return response()->json([
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'points' => $user->points,
+                'badge' => $user->badge,
+                'next_badge' => $user->next_badge,
+            ],
+            'token' => $token,
+        ], $status);
     }
 }

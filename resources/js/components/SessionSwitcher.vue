@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 import api from '../api';
 import { useSession } from '../composables/useSession';
 import BadgePill from './BadgePill.vue';
+import NewUserModal from './NewUserModal.vue';
 
 const { session, loginAs, logout } = useSession();
 
@@ -10,15 +11,18 @@ const demoUsers = ref([]);
 const selectedEmail = ref('');
 const loading = ref(false);
 const error = ref('');
+const showNewUserModal = ref(false);
 
-onMounted(async () => {
+async function loadDemoUsers() {
     try {
         const { data } = await api.get('/auth/demo-users');
         demoUsers.value = data;
     } catch {
-        error.value = 'Could not load demo users.';
+        error.value = 'Could not load users.';
     }
-});
+}
+
+onMounted(loadDemoUsers);
 
 async function handleLogin() {
     if (!selectedEmail.value) return;
@@ -33,6 +37,10 @@ async function handleLogin() {
     } finally {
         loading.value = false;
     }
+}
+
+async function handleUserCreated() {
+    await loadDemoUsers();
 }
 </script>
 
@@ -66,7 +74,12 @@ async function handleLogin() {
             >
                 {{ loading ? 'Logging in...' : 'Go' }}
             </button>
+            <button type="button" class="btn btn--ghost btn--sm" @click="showNewUserModal = true">
+                New user
+            </button>
         </template>
     </div>
     <p v-if="error" class="muted" style="font-size: 0.75rem">{{ error }}</p>
+
+    <NewUserModal v-model="showNewUserModal" @created="handleUserCreated" />
 </template>

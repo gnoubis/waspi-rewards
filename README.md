@@ -172,15 +172,20 @@ was assumed and why, so nothing is a silent surprise during review:
    extra dependency. It satisfies the actual requirement (a button opens
    a modal to add a comment) without a broken/incompatible dependency.
 
-5. **Login is password-less, for the demo UI only.** The brief asks for a
-   way to "add a comment as a user" / "like a comment as a user" - not for
-   a full authentication system. The UI lets you pick a seeded user by
-   email and issues a real Sanctum token for them
-   (`POST /api/auth/login`), so every comment/like is attributed to a real,
-   authenticated user server-side. This keeps scope focused on the reward
-   system rather than reimplementing auth. `GET /api/auth/demo-users` is a
-   UI-only convenience endpoint (name/email only, no auth) and is
-   unrelated to the graded, token-gated `GET /api/rewards/users` endpoint.
+5. **Login/sign-up is password-less, for the demo UI only.** The brief
+   asks for a way to "add a comment as a user" / "like a comment as a
+   user" - not for a full authentication system. The UI lets you either
+   pick an existing user by email (`POST /api/auth/login`) or create a
+   brand new one on the spot via the "New user" button (name + email
+   only, `POST /api/auth/register`) - either way you get back a real
+   Sanctum token, so every comment/like is attributed to a real,
+   authenticated user server-side. A registered user gets a random,
+   never-surfaced password under the hood purely because the `users`
+   table requires one; there is no password login flow to go with it.
+   This keeps scope focused on the reward system rather than
+   reimplementing auth. `GET /api/auth/demo-users` is a UI-only
+   convenience endpoint (name/email only, no auth) and is unrelated to
+   the graded, token-gated `GET /api/rewards/users` endpoint.
 
 6. **The `points` filter on the graded endpoint is an exact match**
    ("users having those points" was read literally), not a minimum
@@ -225,6 +230,7 @@ All endpoints are under `/api`. Endpoints under "Auth-gated" require an
 |--------|-------------------------------|-------------|--------------------------------------------|
 | GET    | `/rewards/users`              | access_token param | **Graded endpoint** - list/filter users, points, badges |
 | POST   | `/auth/login`                 | none        | Demo "log in as" by email, returns a Sanctum token |
+| POST   | `/auth/register`              | none        | Create a new user (name + email) and log in as them |
 | POST   | `/auth/logout`                | Bearer      | Revoke the current token                   |
 | GET    | `/auth/user`                  | Bearer      | Current authenticated user                 |
 | GET    | `/auth/demo-users`            | none        | `{id, name, email}` list for the UI's login dropdown |

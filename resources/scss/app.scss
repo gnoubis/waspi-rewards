@@ -1,0 +1,16 @@
+@use 'base';
+@use 'components/button';
+@use 'components/badge';
+@use 'components/modal';
+@use 'components/form';
+@use 'components/card';
+@use 'components/comment';
+@use 'components/layout';
+
+// Tailwind is wired in as the bonus mentioned in the brief ("a plus will
+// be appreciated using Tailwind"), but the actual component styling above
+// is hand-written SCSS - variables, mixins, nesting, maps - since the
+// brief specifically asks to see SCSS proficiency.
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

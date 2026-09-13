@@ -1,0 +1,54 @@
+@use 'sass:color';
+@use '../variables' as v;
+@use '../mixins' as m;
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: v.space(2);
+    margin-bottom: v.space(4);
+
+    &__label {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: v.$color-body;
+    }
+
+    &__error {
+        font-size: 0.8125rem;
+        color: v.$color-danger;
+    }
+}
+
+.input,
+.textarea,
+.select {
+    @include m.focus-ring;
+
+    width: 100%;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-md;
+    padding: v.space(3);
+    font-size: 0.9375rem;
+    font-family: inherit;
+    color: v.$color-ink;
+    background: v.$color-surface;
+    transition: border-color v.$transition-base;
+
+    &::placeholder {
+        color: v.$color-muted;
+    }
+
+    &:hover {
+        border-color: color.adjust(v.$color-border, $lightness: -10%);
+    }
+
+    &--invalid {
+        border-color: v.$color-danger;
+    }
+}
+
+.textarea {
+    resize: vertical;
+    min-height: 6rem;
+}

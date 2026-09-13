@@ -1,0 +1,59 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+.badge {
+    @include m.flex-center(v.space(1));
+
+    display: inline-flex;
+    padding: v.space(1) v.space(3);
+    border-radius: v.$radius-pill;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    &__icon {
+        font-size: 0.9em;
+        line-height: 1;
+    }
+
+    // One modifier per badge tier known to the backend
+    // (App\Services\BadgeService::TIERS).
+    &--beginner-badge {
+        @include m.badge-tier('beginner-badge');
+    }
+
+    &--top-fan-badge {
+        @include m.badge-tier('top-fan-badge');
+    }
+
+    &--super-fan-badge {
+        @include m.badge-tier('super-fan-badge');
+    }
+
+    &--none {
+        background: v.$color-canvas;
+        color: v.$color-muted;
+        box-shadow: inset 0 0 0 1px v.$color-border;
+    }
+}
+
+// A slim points readout used next to badges throughout the UI.
+.points {
+    @include m.flex-center(v.space(1));
+
+    display: inline-flex;
+    font-weight: 700;
+    color: v.$color-ink;
+
+    &__value {
+        font-variant-numeric: tabular-nums;
+    }
+
+    &__label {
+        color: v.$color-muted;
+        font-weight: 500;
+        font-size: 0.8125rem;
+    }
+}

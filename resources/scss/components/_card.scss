@@ -1,0 +1,77 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+.card {
+    @include m.card;
+
+    padding: v.space(5);
+
+    & + & {
+        margin-top: v.space(5);
+    }
+
+    &__header {
+        @include m.flex-center(v.space(3));
+
+        justify-content: space-between;
+        margin-bottom: v.space(4);
+    }
+
+    &__title {
+        font-size: 1.0625rem;
+        font-weight: 700;
+    }
+
+    &__body {
+        color: v.$color-body;
+        line-height: 1.6;
+    }
+}
+
+.avatar {
+    @include m.flex-center;
+
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: v.$color-primary-light;
+    color: v.$color-primary-dark;
+    font-weight: 700;
+    font-size: 0.9375rem;
+
+    &--sm {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.8125rem;
+    }
+}
+
+.empty-state {
+    @include m.flex-center;
+
+    flex-direction: column;
+    gap: v.space(2);
+    padding: v.space(7) v.space(4);
+    color: v.$color-muted;
+    text-align: center;
+}
+
+.alert {
+    display: flex;
+    gap: v.space(2);
+    padding: v.space(3) v.space(4);
+    border-radius: v.$radius-md;
+    font-size: 0.875rem;
+    margin-bottom: v.space(4);
+
+    &--error {
+        background: v.$color-danger-light;
+        color: v.$color-danger;
+    }
+
+    &--success {
+        background: rgba(v.$color-success, 0.12);
+        color: v.$color-success;
+    }
+}

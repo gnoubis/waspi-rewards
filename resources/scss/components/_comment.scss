@@ -1,0 +1,99 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+.comment-list {
+    display: flex;
+    flex-direction: column;
+    gap: v.space(4);
+    margin-top: v.space(4);
+}
+
+.comment {
+    display: flex;
+    gap: v.space(3);
+    padding: v.space(4);
+    border-radius: v.$radius-md;
+    background: v.$color-canvas;
+
+    &__body {
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__header {
+        @include m.flex-center(v.space(2));
+
+        flex-wrap: wrap;
+        margin-bottom: v.space(1);
+    }
+
+    &__author {
+        font-weight: 700;
+        font-size: 0.9375rem;
+    }
+
+    &__time {
+        color: v.$color-muted;
+        font-size: 0.75rem;
+    }
+
+    &__text {
+        color: v.$color-body;
+        line-height: 1.55;
+        word-break: break-word;
+    }
+
+    &__actions {
+        @include m.flex-center(v.space(4));
+
+        margin-top: v.space(2);
+    }
+}
+
+.like-button {
+    @include m.button-reset;
+    @include m.flex-center(v.space(1));
+    @include m.focus-ring;
+
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: v.$color-muted;
+    border-radius: v.$radius-pill;
+    padding: v.space(1) v.space(2);
+    transition: color v.$transition-base, background-color v.$transition-base;
+
+    &:hover:not(:disabled) {
+        background: v.$color-primary-light;
+        color: v.$color-primary-dark;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    &--active {
+        color: v.$color-primary;
+    }
+
+    &__icon {
+        transition: transform v.$transition-fast;
+    }
+
+    &--active &__icon {
+        transform: scale(1.15);
+    }
+}
+
+.delete-button {
+    @include m.button-reset;
+    @include m.focus-ring;
+
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: v.$color-muted;
+
+    &:hover:not(:disabled) {
+        color: v.$color-danger;
+    }
+}

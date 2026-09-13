@@ -1,0 +1,71 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+.btn {
+    @include m.flex-center(v.space(2));
+    @include m.focus-ring;
+
+    appearance: none;
+    border: 1px solid transparent;
+    border-radius: v.$radius-pill;
+    padding: v.space(2) v.space(4);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform v.$transition-fast, background-color v.$transition-base, border-color v.$transition-base, opacity v.$transition-base;
+    white-space: nowrap;
+
+    &:active {
+        transform: scale(0.97);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    &--primary {
+        background: v.$color-primary;
+        color: #fff;
+
+        &:hover:not(:disabled) {
+            background: v.$color-primary-dark;
+        }
+    }
+
+    &--ghost {
+        background: transparent;
+        border-color: v.$color-border;
+        color: v.$color-body;
+
+        &:hover:not(:disabled) {
+            border-color: v.$color-primary;
+            color: v.$color-primary-dark;
+        }
+    }
+
+    &--danger {
+        background: transparent;
+        color: v.$color-danger;
+
+        &:hover:not(:disabled) {
+            background: v.$color-danger-light;
+        }
+    }
+
+    &--sm {
+        padding: v.space(1) v.space(3);
+        font-size: 0.8125rem;
+    }
+
+    &--block {
+        width: 100%;
+    }
+
+    &--icon {
+        padding: v.space(2);
+        border-radius: 50%;
+    }
+}

@@ -1,0 +1,102 @@
+// Custom modal component (see resources/js/components/AppModal.vue).
+//
+// The task brief points to `vue-js-modal`, a Vue 2 plugin. This project
+// uses Vue 3, which that package does not support, so per the brief's own
+// instruction ("anything not [a cited library] should be done in vanilla
+// JS") this modal is a small hand-rolled Vue component with plain
+// CSS/SCSS + the native <dialog>-style overlay pattern, no extra
+// dependency. See README "Assumptions".
+@use '../variables' as v;
+@use '../mixins' as m;
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: v.space(4);
+    background: rgba(17, 20, 30, 0.48);
+    backdrop-filter: blur(2px);
+
+    @include m.respond('sm') {
+        align-items: center;
+    }
+}
+
+.modal {
+    width: 100%;
+    max-width: 32rem;
+    max-height: min(88vh, 640px);
+    display: flex;
+    flex-direction: column;
+    background: v.$color-surface;
+    border-radius: v.$radius-lg;
+    box-shadow: v.$shadow-lg;
+    overflow: hidden;
+
+    &__header {
+        @include m.flex-center;
+
+        justify-content: space-between;
+        padding: v.space(5) v.space(5) v.space(4);
+        border-bottom: 1px solid v.$color-border;
+    }
+
+    &__title {
+        font-size: 1.125rem;
+        font-weight: 700;
+    }
+
+    &__close {
+        @include m.button-reset;
+        @include m.flex-center;
+        @include m.focus-ring;
+
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        color: v.$color-muted;
+        font-size: 1.25rem;
+
+        &:hover {
+            background: v.$color-canvas;
+            color: v.$color-ink;
+        }
+    }
+
+    &__body {
+        padding: v.space(5);
+        overflow-y: auto;
+    }
+
+    &__footer {
+        @include m.flex-center(v.space(3));
+
+        justify-content: flex-end;
+        padding: v.space(4) v.space(5);
+        border-top: 1px solid v.$color-border;
+        background: v.$color-canvas;
+    }
+}
+
+// Transition used by <Transition name="modal"> in AppModal.vue.
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+    transition: opacity v.$transition-base;
+
+    .modal {
+        transition: transform v.$transition-base, opacity v.$transition-base;
+    }
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+    opacity: 0;
+
+    .modal {
+        transform: translateY(16px) scale(0.98);
+        opacity: 0;
+    }
+}

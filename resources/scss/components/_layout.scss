@@ -1,0 +1,83 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+.app-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: v.$color-surface;
+    border-bottom: 1px solid v.$color-border;
+
+    &__inner {
+        @include m.flex-center;
+
+        justify-content: space-between;
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: v.space(4);
+        gap: v.space(3);
+    }
+
+    &__brand {
+        @include m.flex-center(v.space(2));
+
+        font-weight: 800;
+        font-size: 1.125rem;
+        letter-spacing: -0.01em;
+    }
+
+    &__logo {
+        font-size: 1.4rem;
+    }
+}
+
+.app-main {
+    flex: 1;
+    max-width: 42rem;
+    width: 100%;
+    margin: 0 auto;
+    padding: v.space(5) v.space(4) v.space(8);
+}
+
+.session-switcher {
+    @include m.flex-center(v.space(2));
+}
+
+.session-switcher__current {
+    @include m.flex-center(v.space(2));
+}
+
+.post-header {
+    @include m.flex-center(v.space(3));
+
+    margin-bottom: v.space(3);
+}
+
+.post-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin-bottom: v.space(1);
+}
+
+.post-body {
+    color: v.$color-body;
+    line-height: 1.6;
+    margin-bottom: v.space(1);
+}
+
+.section-heading {
+    @include m.flex-center(v.space(2));
+
+    justify-content: space-between;
+    margin-bottom: v.space(3);
+}
+
+.muted {
+    color: v.$color-muted;
+}

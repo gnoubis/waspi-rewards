@@ -6,8 +6,8 @@ assessment.
 
 - **Stack:** Laravel 11 (API) + Vue 3 / Vite (SPA-style frontend) + SCSS,
   single repo, single deployable app.
-- **Live demo:** _\<add your deployed URL here\>_
-- **Repository:** _\<add your GitHub repository URL here\>_
+- **Live demo:** https://waspi-rewards-xs2p.onrender.com
+- **Repository:** https://github.com/gnoubis/waspi-rewards
 
 ---
 
@@ -32,11 +32,11 @@ Optional filters (combinable):
 Example:
 
 ```bash
-curl "https://<your-deployed-url>/api/rewards/users?access_token=waspito-reviewer-access-token-2026"
+curl "https://waspi-rewards-xs2p.onrender.com/api/rewards/users?access_token=waspito-reviewer-access-token-2026"
 
-curl "https://<your-deployed-url>/api/rewards/users?access_token=waspito-reviewer-access-token-2026&type=super-fan-badge"
+curl "https://waspi-rewards-xs2p.onrender.com/api/rewards/users?access_token=waspito-reviewer-access-token-2026&type=super-fan-badge"
 
-curl "https://<your-deployed-url>/api/rewards/users?access_token=waspito-reviewer-access-token-2026&points=2550"
+curl "https://waspi-rewards-xs2p.onrender.com/api/rewards/users?access_token=waspito-reviewer-access-token-2026&points=2550"
 ```
 
 Sample response:
@@ -206,6 +206,15 @@ silent surprise during review:
    comment is treated as idempotent (still returns 200) rather than an
    error.
 
+10. **The app trusts its host's reverse proxy** (`bootstrap/app.php`
+    calls `trustProxies(at: '*')`, and `AppServiceProvider` forces the
+    `https` URL scheme in production). Render/Railway/Heroku-style
+    platforms terminate TLS at their edge and forward plain HTTP to the
+    container; without this, Laravel generates `http://` asset URLs on
+    an `https://` page, which browsers silently block as mixed content -
+    the Vue bundle never loads and the page renders blank with no
+    visible error.
+
 ---
 
 ## 5. Bonus features implemented
@@ -247,12 +256,16 @@ the whole app (API + SPA) from a single container via `php artisan serve`.
 This is a deliberate simplification for a reviewable demo, not a
 production PHP-FPM/Nginx setup - see Assumptions.
 
-### Option A: Railway / Render (recommended, free tier)
+### Option A: Render (recommended, free tier - this is what the live demo runs on)
+
+Railway dropped its free tier and now requires a paid plan; Render's free
+Web Service tier doesn't need a card. The only downside is a cold start
+(a few seconds) after 15 minutes of inactivity.
 
 1. Push this repository to GitHub (see section 8).
-2. Create a new service on [Railway](https://railway.app) or
-   [Render](https://render.com), pointing it at your GitHub repo, and let
-   it detect the `Dockerfile`.
+2. On [Render](https://render.com), **New +** -> **Web Service**, connect
+   your GitHub account if needed, and pick this repo. Render detects the
+   `Dockerfile` automatically - pick the **Free** plan.
 3. Set these environment variables on the service:
    - `APP_KEY` - generate one locally with `php artisan key:generate --show`
      and paste the `base64:...` value, so it's stable across restarts.
